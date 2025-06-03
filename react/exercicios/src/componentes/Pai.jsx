@@ -6,9 +6,10 @@ const Pai = props =>
         <h1>{props.nome} {props.sobrenome}</h1>
         <h2>Filhos</h2>
         <ul>
-            <Filho nome="Pedro" sobrenome={props.sobrenome} />
-            <Filho {...props} /> {/*comentário: aqui o operador spread é a mesma coisa que se colocasse nome={props.nome} sobrenome={props.sobrenome}*/}
-            <Filho {...props} nome="Carla" />
+            {
+            React.cloneElement(props.children, { ...props, ...props.children.props })
+            } {/* estamos adicionando propriedades aos elementos filhos. Serão usadas proprieades do elemento pai e aquelas proprieades onde estiver presente no elemento pai e elemento filho, o elemento filho vai sobrescrever*/}
+            
         </ul>
     </div>
 export default Pai

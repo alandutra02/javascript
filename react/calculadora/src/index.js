@@ -7,7 +7,10 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Calculator />
+  <div>
+    <h1>Calculadora</h1>
+    <Calculator />
+  </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,0 +1,13 @@
+:root { /* é um seletor CSS especial que representa o elemento raiz do documento HTML */
+    --bg-button: #f0f0f0; /* criação de variáveis do css. Isso não é scss ou sass. Precisa começar com dois traços */
+    --border-button: solid 1px #888;
+}
+
+.button {
+    font-size: 1.4em;
+    background-color: var(--bg-button);
+    border: none;
+    border-right: var(--border-button);
+    border-bottom: var(--border-button);
+    outline: none;
+}

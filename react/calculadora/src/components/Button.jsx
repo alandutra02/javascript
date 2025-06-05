@@ -9,7 +9,7 @@ const button = props => {
 
     return(
         <button
-            onClick={e => props.click && props.Click(e.target.label)}
+            onClick={() => props.click && props.click(props.label)}
             className={classes}>
             {props.label}
         </button>

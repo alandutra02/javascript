@@ -3,9 +3,9 @@ import './Button.css'
 
 const button = props => {
     let classes = 'button'
-    classes += props.operation ? 'operation' : ''
-    classes += props.double ? 'double' : ''
-    classes += props.triple ? 'triple' : ''
+    classes += props.operation ? ' operation' : ''
+    classes += props.double ? ' double' : ''
+    classes += props.triple ? ' triple' : ''
 
     return(
         <button

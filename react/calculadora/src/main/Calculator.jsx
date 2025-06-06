@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import Display from "../components/Display";
 
 const initialState = {
-    displayValue: '10',
+    displayValue: '0',
     clearDisplay: false,
     operation: null,
     values: [0, 0],
@@ -34,11 +34,21 @@ export default class Calculator extends Component {
 
     addDigit(n) {
         if(n === '.' && this.state.displayValue.includes('.')) {
-            return // aqui se for digitado o segundo ponto na caluladora, ele sai da função sem fazer nada
-            const clearDisplay = this.state.displayValue === '0'
-                || this.state.clearDisplay
-            const currentValue = clearDisplay ? '' : this.state.displayValue
+            return // aqui se for digitado o segundo ponto na caluladora, ele sai da função sem fazer nada   
+        }
+        const clearDisplay = this.state.displayValue === '0'
+            || this.state.clearDisplay
+        const currentValue = clearDisplay ? '' : this.state.displayValue
+        const displayValue = currentValue + n
+        this.setState({displayValue, clearDisplay: false})
 
+        if(n != '.') {
+            const i = this.state.current
+            const newValue = parseFloat(displayValue)
+            const values = [...this.state.values] // clonagem do array state.values para values já convertido em float para permitir operações matemáticas
+            values[i] = newValue
+            this.setState({values})
+            console.log(values)
         }
     }
 

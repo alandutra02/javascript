@@ -12,7 +12,6 @@ const button = props => {
             onClick={() => props.click && props.click(props.label)}
             className={classes}>
             {props.label}
-            {console.log(classes)}
         </button>
     )
 }

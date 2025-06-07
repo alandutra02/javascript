@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import './Calculator.css'
+import {evaluate} from 'mathjs'
 
 import Button from "../components/Button";
 import Display from "../components/Display";
@@ -29,16 +30,37 @@ export default class Calculator extends Component {
     }
 
     setOperation(operation) {
-        console.log(operation)
+       if(this.state.current === 0) {
+            this.setState({ operation, current: 1, clearDisplay: true })
+       } else {
+            const equals = operation === '='
+            const currentOperation = this.state.operation
+
+            const values = [...this.state.values]
+            try {
+                values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
+            } catch(e) {
+                values[0] = this.state.value[0]
+            }
+            values[1] = 0
+            
+            this.setState({
+                displayValue: values[0],
+                operation: equals ? null : operation,
+                current: equals ? 0 : 1,
+                clearDisplay: !equals,
+                values
+            })
+       }
     }
 
     addDigit(n) {
-        if(n === '.' && this.state.displayValue.includes('.')) {
+        if(n === '.' && this.state.displayValue.includes('.')) { // o includes é um método de string (também funciona em arrays), que verifica se um determinado valor existe dentro da string.
             return // aqui se for digitado o segundo ponto na caluladora, ele sai da função sem fazer nada   
         }
         const clearDisplay = this.state.displayValue === '0'
             || this.state.clearDisplay
-        const currentValue = clearDisplay ? '' : this.state.displayValue
+        const currentValue = clearDisplay ? '' : this.state.displayValue // se clearDisplay form verdadeiro, zera o currentValue que é o valor corrente.
         const displayValue = currentValue + n
         this.setState({displayValue, clearDisplay: false})
 
@@ -57,7 +79,7 @@ export default class Calculator extends Component {
             <div className="calculator">
                 <Display value={this.state.displayValue} />
                 <Button label="AC" click={this.clearMemory} triple />
-                <Button label="/" click={(label)=>console.log(label)} operation />
+                <Button label="/" click={this.setOperation} operation />
                 <Button label="7" click={this.addDigit}/>
                 <Button label="8" click={this.addDigit}/>
                 <Button label="9" click={this.addDigit}/>
